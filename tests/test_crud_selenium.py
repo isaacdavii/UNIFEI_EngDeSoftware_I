@@ -14,11 +14,11 @@ class TestCRUD(unittest.TestCase):
 
     def test_add_book(self):
         self.driver.get(f"{self.base_url}/add_book")
-        self.driver.find_element(By.ID, "title").send_keys("O Pequeno Príncipe")
-        self.driver.find_element(By.ID, "author").send_keys("Antoine de Saint-Exupéry")
-        self.driver.find_element(By.ID, "publisher").send_keys("Editora XYZ")
-        self.driver.find_element(By.ID, "data_publicacao").send_keys("01/04/1943")
-        self.driver.find_element(By.ID, "genero_literario").send_keys("Fantasia")
+        self.driver.find_element(By.ID, "title").send_keys("Imitação de Cristo")
+        self.driver.find_element(By.ID, "author").send_keys("Tomás de Kempis")
+        self.driver.find_element(By.ID, "publisher").send_keys("Santa Cryz")
+        self.driver.find_element(By.ID, "data_publicacao").send_keys("01/01/1418")
+        self.driver.find_element(By.ID, "genero_literario").send_keys("Outro")
         self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         
         # Após redirecionamento, verifique se o livro aparece na lista
