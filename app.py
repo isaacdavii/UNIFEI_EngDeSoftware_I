@@ -67,7 +67,7 @@ def add_client():
         telefone = request.form.get('telefone')
         email = request.form.get('email')
         
-        new_client = Client(name=name, cpf=cpf, telefone=telefone, email=email, sexo=sexo)
+        new_client = Client(name=name, cpf=cpf, telefone=telefone, email=email)
         
         db.session.add(new_client)
         db.session.commit()
