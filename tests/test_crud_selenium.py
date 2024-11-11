@@ -17,6 +17,8 @@ class TestCRUD(unittest.TestCase):
         self.driver.find_element(By.ID, "title").send_keys("O Pequeno Príncipe")
         self.driver.find_element(By.ID, "author").send_keys("Antoine de Saint-Exupéry")
         self.driver.find_element(By.ID, "publisher").send_keys("Editora XYZ")
+        self.driver.find_element(By.ID, "data_publicacao").send_keys("01/04/1943")
+        self.driver.find_element(By.ID, "genero_literario").send_keys("Fantasia")
         self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         
         # Após redirecionamento, verifique se o livro aparece na lista
@@ -26,6 +28,8 @@ class TestCRUD(unittest.TestCase):
         self.driver.get(f"{self.base_url}/add_client")
         self.driver.find_element(By.ID, "name").send_keys("Maria Silva")
         self.driver.find_element(By.ID, "cpf").send_keys("123.456.789-00")
+        self.driver.find_element(By.ID, "telefone").send_keys("(11) 91234-5678")
+        self.driver.find_element(By.ID, "email").send_keys("maria.silva@example.com")
         self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         
         # Após redirecionamento, verifique se o cliente aparece na lista
