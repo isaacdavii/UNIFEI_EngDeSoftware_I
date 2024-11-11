@@ -86,10 +86,15 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    ```bash
    python tests/test_crud_selenium.py
 
-5. Página para Adicionar Cliente e Adicionar Livro:
+5. Página para Adicionar Cliente e Livro:
    ```bash
    localhost:5000/add_book
    localhost:5000/add_client
+
+5. Página para Listar Cliente e Livro:
+   ```bash
+   localhost:5000/list_books
+   localhost:5000/list_clients
 
 ## Licença
   Este projeto é apenas para fins educacionais e não está licenciado para uso comercial.
