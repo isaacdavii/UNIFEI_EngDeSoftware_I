@@ -38,24 +38,25 @@ A estrutura do projeto inclui:
 
 ## Requisitos Funcionais (Exemplos)
 
-1. Manter Cadastro de Livros
-2. Manter Cadastro de Usuários
-3. Realizar Empréstimo de Livros
-4. Consultar Disponibilidade de Livros
-5. Gerar Relatório de Livros Disponíveis
-6. Gerar Relatório de Empréstimos
+1. Inserir Livro
+2. Inserir Gênero Literário
+3. Consultar Livro
+4. Alterar Dados do Livros
+5. Remover Dados dos Livros
+6.  Inserir Cliente
+7.  Registrar Empréstimo
 
 ## Requisitos Não Funcionais (Exemplos)
 
 1. **Desempenho**: Resposta às consultas em até 2 segundos.
 2. **Segurança**: Autenticação por login e senha com criptografia.
 3. **Confiabilidade**: Disponibilidade do sistema de 99%.
-4. **Usabilidade**: Interfaces intuitivas e acessíveis.
-5. **Portabilidade**: Acessível em dispositivos desktop e móveis.
+4. **Usabilidade**: 80% dos funcionários devem conseguir realizar as operações principais (inserção de livro, registro de empréstimo e geração de relatório) em menos de 2 minutos, após 1 hora de uso do sistema.
+5. **Portabilidade**: O sistema deve funcionar corretamente em desktops e smartphones com os seguintes requisitos mínimos: navegadores Chrome, Firefox e Safari atualizados para a versão mais recente e dispositivos com Android (versão 10 ou superior) e iOS (versão 13 ou superior), utilizando os navegadores Chrome, Firefox e Safari.
 
 ## Protótipos de Telas
 
-1. **Tela Principal**: Interface de boas-vindas com navegação para as funcionalidades.
+1. **Telas Principais**: Cadastro de livros e clientes.
 2. **Relatório Gerado**: Exibição de relatórios detalhados com filtros e opções de exportação.
 3. **Consulta de Disponibilidade de Livros**: Tela de pesquisa de livros com filtros por título, autor e categoria.
 
