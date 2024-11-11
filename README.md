@@ -75,6 +75,21 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    ```bash
    git clone https://github.com/seuusuario/sistema-biblioteca.git
    cd sistema-biblioteca
+2. Execução do Flask:
+
+   No terminal você executa:
+   ```bash
+   python app.py
+4. Execução da automação do Selenium:
+
+   No terminal você executa:
+   ```bash
+   python tests/test_crud_selenium.py
+
+5. Página para Adicionar Cliente e Adicionar Livro:
+   ```bash
+   localhost:5000/add_book
+   localhost:5000/add_client
 
 ## Licença
   Este projeto é apenas para fins educacionais e não está licenciado para uso comercial.
