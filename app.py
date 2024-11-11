@@ -32,7 +32,7 @@ with app.app_context():
 # Rota para a página inicial
 @app.route('/')
 def home():
-    return redirect(url_for('list_books'))
+    return render_template('principal.html')
 
 # Rota para adicionar um novo livro
 @app.route('/add_book', methods=['GET', 'POST'])
@@ -85,10 +85,7 @@ def open_browser():
     # Use uma variável global para garantir que o navegador abre apenas uma vez
     global browser_opened
     if not browser_opened:
-        webbrowser.open_new('http://127.0.0.1:5000/list_books')
-        webbrowser.open_new_tab('http://127.0.0.1:5000/list_clients')
-        webbrowser.open_new_tab('http://127.0.0.1:5000/add_book')
-        webbrowser.open_new_tab('http://127.0.0.1:5000/add_client')
+        webbrowser.open_new('http://127.0.0.1:5000/')
         browser_opened = True
 
 if __name__ == '__main__':
