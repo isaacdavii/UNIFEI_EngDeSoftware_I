@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Inserir Livro</title>
     <style>
-        /* Definindo o estilo para o body e imagem de fundo */
+        /* Estilos do formulário */
         body {
             display: flex;
             justify-content: center;
@@ -12,13 +12,13 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url("{{ url_for('static', filename='Biblioteca.jpg') }}") no-repeat center center fixed;
-            background-size: cover;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
         }
         
-        /* Estilo para o formulário e centralização */
         .form-container {
-            background-color: rgba(255, 255, 255, 0.95); /* Fundo branco com opacidade */
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             width: 300px;
@@ -26,14 +26,12 @@
             text-align: center;
         }
 
-        /* Estilo para o título */
         h1 {
             font-size: 24px;
             color: #333;
             margin-bottom: 20px;
         }
 
-        /* Estilo para os labels */
         label {
             display: block;
             margin: 10px 0 5px;
@@ -41,23 +39,21 @@
             color: #555;
         }
 
-        /* Estilo para os campos de entrada */
-        input[type="text"] {
+        input[type="text"], select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
-            border-radius: 20px; /* Arredondado */
+            border-radius: 20px;
             box-sizing: border-box;
         }
 
-        /* Estilo para o botão */
         button {
             padding: 10px 20px;
-            background-color: #4CAF50; /* Verde */
+            background-color: #4A6A72;
             color: white;
             border: none;
-            border-radius: 20px; /* Arredondado */
+            border-radius: 20px;
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
@@ -65,12 +61,11 @@
         }
 
         button:hover {
-            background-color: #45a049; /* Cor mais escura ao passar o mouse */
+            background-color: #3d555f;
         }
     </style>
 </head>
 <body>
-    <!-- Conteúdo do formulário -->
     <div class="form-container">
         <h1>Inserir Livro</h1>
         <form action="{{ url_for('add_book') }}" method="post">
@@ -81,7 +76,21 @@
             <input type="text" name="author" id="author" required>
             
             <label for="publisher">Editora:</label>
-            <input type="text" name="publisher" id="publisher" required>
+            <input type="text" name="publisher" id="publisher">
+            
+            <label for="data_publicacao">Data de Publicação:</label>
+            <input type="text" name="data_publicacao" id="data_publicacao" placeholder="DD/MM/AAAA">
+            
+            <label for="genero_literario">Gênero Literário:</label>
+            <select name="genero_literario" id="genero_literario">
+                <option value="">Selecione</option>
+                <option value="Ficção">Ficção</option>
+                <option value="Fantasia">Fantasia</option>
+                <option value="Romance">Romance</option>
+                <option value="Aventura">Aventura</option>
+                <option value="Suspense">Suspense</option>
+                <!-- Adicione mais opções conforme necessário -->
+            </select>
             
             <button type="submit">Adicionar Livro</button>
         </form>

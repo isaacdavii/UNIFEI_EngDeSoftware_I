@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Lista de Clientes</title>
     <style>
-        /* Estilo geral */
         body {
             display: flex;
             justify-content: center;
@@ -12,16 +11,18 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
             color: #333;
         }
 
         .container {
             width: 80%;
-            max-width: 600px;
+            max-width: 800px;
             background-color: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
@@ -32,11 +33,12 @@
             margin-bottom: 20px;
         }
 
-        /* Estilo da tabela */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         th, td {
@@ -46,7 +48,7 @@
         }
 
         th {
-            background-color: #3498db;
+            background-color: #4A6A72;
             color: white;
             font-weight: bold;
         }
@@ -64,6 +66,8 @@
                 <tr>
                     <th>Nome</th>
                     <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +75,8 @@
                     <tr>
                         <td>{{ client.name }}</td>
                         <td>{{ client.cpf }}</td>
+                        <td>{{ client.telefone }}</td>
+                        <td>{{ client.email }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

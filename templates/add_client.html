@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Inserir Cliente</title>
     <style>
-        /* Configurações do body e imagem de fundo */
         body {
             display: flex;
             justify-content: center;
@@ -12,30 +11,27 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url("{{ url_for('static', filename='Conversa.jpg') }}") no-repeat center center fixed;
-            background-size: cover;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
             color: #333;
         }
         
-        /* Estilo do contêiner do formulário */
         .form-container {
-            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com mais opacidade */
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 30px;
             border-radius: 15px;
             width: 350px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            text-align: left; /* Alinhamento à esquerda */
+            text-align: center;
         }
 
-        /* Estilo do título */
         h1 {
             font-size: 26px;
             color: #444;
-            text-align: center;
             margin-bottom: 20px;
         }
 
-        /* Estilo dos labels */
         label {
             display: block;
             margin: 12px 0 5px;
@@ -43,8 +39,7 @@
             color: #555;
         }
 
-        /* Estilo dos campos de entrada */
-        input[type="text"] {
+        input[type="text"], select {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -54,39 +49,42 @@
             font-size: 16px;
         }
 
-        /* Estilo do botão */
         button {
             padding: 12px 25px;
-            background-color: #3498db; /* Azul */
+            background-color: #4A6A72;
             color: white;
             border: none;
-            border-radius: 25px; /* Bordas mais arredondadas */
+            border-radius: 25px;
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s, transform 0.1s;
             width: 100%;
         }
 
-        /* Efeitos no botão */
         button:hover {
-            background-color: #2980b9; /* Cor mais escura ao passar o mouse */
+            background-color: #3d555f;
         }
         
         button:active {
-            transform: scale(0.98); /* Efeito de clique */
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
-    <!-- Contêiner do formulário -->
     <div class="form-container">
         <h1>Inserir Cliente</h1>
         <form action="{{ url_for('add_client') }}" method="post">
             <label for="name">Nome:</label>
             <input type="text" name="name" id="name" required>
-            
+
             <label for="cpf">CPF:</label>
             <input type="text" name="cpf" id="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" name="telefone" id="telefone" pattern="\(\d{2}\) \d{5}-\d{4}" placeholder="(XX) XXXXX-XXXX">
+
+            <label for="email">E-mail:</label>
+            <input type="text" name="email" id="email" placeholder="nome@dominio.com">
             
             <button type="submit">Adicionar Cliente</button>
         </form>
