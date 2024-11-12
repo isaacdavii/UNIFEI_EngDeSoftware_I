@@ -88,6 +88,24 @@
         .action-buttons form button:hover {
             background-color: #c9302c;
         }
+
+        .return-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto 0;
+            background-color: #4A6A72;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .return-button:hover {
+            background-color: #3d555f;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +140,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        <a href="{{ url_for('home') }}" class="return-button">Retornar ao Menu Principal</a>
     </div>
 </body>
 </html>
