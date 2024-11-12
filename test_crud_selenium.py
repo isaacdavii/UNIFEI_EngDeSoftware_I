@@ -43,6 +43,7 @@ class TestCRUD(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+#ABAIXO TEMOS UM TESTE DE SELENIUM PARA INCREMENTAÇÃO DE UM LIVRO E CLIENTE
 '''
 import unittest
 from selenium import webdriver
