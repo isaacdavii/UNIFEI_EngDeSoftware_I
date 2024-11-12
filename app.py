@@ -223,6 +223,31 @@ def list_loans():
     except Exception as e:
         app.logger.error(f"Error in list_loans: {str(e)}")
         return f"Error loading loans: {str(e)}", 500
+    
+# Rota para editar um empréstimo
+@app.route('/edit_loan/<int:loan_id>', methods=['GET', 'POST'])
+def edit_loan(loan_id):
+    loan = Loan.query.get_or_404(loan_id)
+    if request.method == 'POST':
+        loan.client_id = request.form['client_id']
+        loan.book_id = request.form['book_id']
+        loan.loan_date = request.form['loan_date']
+        loan.return_date = request.form['return_date']
+        loan.status = request.form['status']
+        
+        db.session.commit()
+        return redirect(url_for('list_loans'))
+    clients = Client.query.all()
+    books = Book.query.all()
+    return render_template('edit_loan.html', loan=loan, clients=clients, books=books)
+
+# Rota para excluir um empréstimo
+@app.route('/delete_loan/<int:loan_id>', methods=['POST'])
+def delete_loan(loan_id):
+    loan = Loan.query.get_or_404(loan_id)
+    db.session.delete(loan)
+    db.session.commit()
+    return redirect(url_for('list_loans'))
 
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():

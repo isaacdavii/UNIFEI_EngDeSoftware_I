@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Empréstimo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
+        }
+        
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4A6A72;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #3d555f;
+        }
+
+        .return-button {
+            display: block;
+            width: 100%;
+            padding: 12px 0px;
+            margin-top: 15px;
+            background-color: #4A6A72;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .return-button:hover {
+            background-color: #3d555f;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Editar Empréstimo</h1>
+        <form action="{{ url_for('edit_loan', loan_id=loan.id) }}" method="post">
+            <label for="client_id">Nome do Cliente:</label>
+            <select id="client_id" name="client_id" required>
+                {% for client in clients %}
+                <option value="{{ client.id }}" {% if client.id == loan.client_id %}selected{% endif %}>{{ client.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="book_id">Título do Livro:</label>
+            <select id="book_id" name="book_id" required>
+                {% for book in books %}
+                <option value="{{ book.id }}" {% if book.id == loan.book_id %}selected{% endif %}>{{ book.title }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="loan_date">Data do Empréstimo:</label>
+            <input type="date" id="loan_date" name="loan_date" value="{{ loan.loan_date }}" required>
+            
+            <label for="return_date">Data de Expiração do Empréstimo:</label>
+            <input type="date" id="return_date" name="return_date" value="{{ loan.return_date }}" required>
+            
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="open" {% if loan.status == 'open' %}selected{% endif %}>Aberto</option>
+                <option value="closed" {% if loan.status == 'closed' %}selected{% endif %}>Fechado</option>
+            </select>
+            
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <a href="{{ url_for('list_loans') }}" class="return-button">Cancelar</a>
+    </div>
+</body>
+</html>
