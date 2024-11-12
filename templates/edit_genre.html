@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Gênero Literário</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
+            color: #333;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            width: 350px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #4A6A72;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #3d555f;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .return-button {
+            display: block;
+            width: 100%;
+            padding: 12px 0px;
+            margin-top: 15px;
+            background-color: #4A6A72;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .return-button:hover {
+            background-color: #3d555f;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Editar Gênero Literário</h1>
+        <form action="{{ url_for('edit_genre', genre_id=genre.id) }}" method="post">
+            <label for="name">Nome do Gênero:</label>
+            <input type="text" name="name" id="name" value="{{ genre.name }}" required>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <a href="{{ url_for('manage_genres') }}" class="return-button">Retornar ao Gerenciamento de Gêneros</a>
+    </div>
+</body>
+</html>

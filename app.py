@@ -25,6 +25,11 @@ class Client(db.Model):
     telefone = db.Column(db.String(15), nullable=True)  # Formato (XX) XXXXX-XXXX
     email = db.Column(db.String(100), nullable=True)
 
+# Modelo de dados para Gênero Literário
+class Genre(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+
 # Criação das tabelas no banco de dados
 with app.app_context():
     db.create_all()
@@ -124,6 +129,36 @@ def delete_client(client_id):
     db.session.delete(client)
     db.session.commit()
     return redirect(url_for('list_clients'))
+
+# Rotas para gerenciar gêneros literários
+@app.route('/manage_genres')
+def manage_genres():
+    genres = Genre.query.all()
+    return render_template('manage_genres.html', genres=genres)
+
+@app.route('/add_genre', methods=['POST'])
+def add_genre():
+    name = request.form['name']
+    new_genre = Genre(name=name)
+    db.session.add(new_genre)
+    db.session.commit()
+    return redirect(url_for('manage_genres'))
+
+@app.route('/edit_genre/<int:genre_id>', methods=['GET', 'POST'])
+def edit_genre(genre_id):
+    genre = Genre.query.get_or_404(genre_id)
+    if request.method == 'POST':
+        genre.name = request.form['name']
+        db.session.commit()
+        return redirect(url_for('manage_genres'))
+    return render_template('edit_genre.html', genre=genre)
+
+@app.route('/delete_genre/<int:genre_id>', methods=['POST'])
+def delete_genre(genre_id):
+    genre = Genre.query.get_or_404(genre_id)
+    db.session.delete(genre)
+    db.session.commit()
+    return redirect(url_for('manage_genres'))
 
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():
