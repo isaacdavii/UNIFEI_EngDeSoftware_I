@@ -58,6 +58,29 @@ def list_books():
     books = Book.query.all()
     return render_template('list_books.html', books=books)
 
+# Rota para editar um livro
+@app.route('/edit_book/<int:book_id>', methods=['GET', 'POST'])
+def edit_book(book_id):
+    book = Book.query.get_or_404(book_id)
+    if request.method == 'POST':
+        book.title = request.form['title']
+        book.author = request.form['author']
+        book.publisher = request.form['publisher']
+        book.data_publicacao = request.form['data_publicacao']
+        book.genero_literario = request.form['genero_literario']
+        
+        db.session.commit()
+        return redirect(url_for('list_books'))
+    return render_template('edit_book.html', book=book)
+
+# Rota para excluir um livro
+@app.route('/delete_book/<int:book_id>', methods=['POST'])
+def delete_book(book_id):
+    book = Book.query.get_or_404(book_id)
+    db.session.delete(book)
+    db.session.commit()
+    return redirect(url_for('list_books'))
+
 # Rota para adicionar um novo cliente
 @app.route('/add_client', methods=['GET', 'POST'])
 def add_client():
@@ -79,6 +102,28 @@ def add_client():
 def list_clients():
     clients = Client.query.all()
     return render_template('list_clients.html', clients=clients)
+
+# Rota para editar um cliente
+@app.route('/edit_client/<int:client_id>', methods=['GET', 'POST'])
+def edit_client(client_id):
+    client = Client.query.get_or_404(client_id)
+    if request.method == 'POST':
+        client.name = request.form['name']
+        client.cpf = request.form['cpf']
+        client.telefone = request.form['telefone']
+        client.email = request.form['email']
+        
+        db.session.commit()
+        return redirect(url_for('list_clients'))
+    return render_template('edit_client.html', client=client)
+
+# Rota para excluir um cliente
+@app.route('/delete_client/<int:client_id>', methods=['POST'])
+def delete_client(client_id):
+    client = Client.query.get_or_404(client_id)
+    db.session.delete(client)
+    db.session.commit()
+    return redirect(url_for('list_clients'))
 
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():

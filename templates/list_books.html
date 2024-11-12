@@ -56,6 +56,38 @@
         tr:hover {
             background-color: #f1f1f1;
         }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons a, .action-buttons form {
+            display: inline-block;
+        }
+
+        .action-buttons button {
+            padding: 5px 10px;
+            background-color: #4A6A72;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .action-buttons button:hover {
+            background-color: #3d555f;
+        }
+
+        .action-buttons form button {
+            background-color: #d9534f;
+        }
+
+        .action-buttons form button:hover {
+            background-color: #c9302c;
+        }
     </style>
 </head>
 <body>
@@ -69,6 +101,7 @@
                     <th>Editora</th>
                     <th>Data de Publicação</th>
                     <th>Gênero Literário</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,6 +112,12 @@
                         <td>{{ book.publisher }}</td>
                         <td>{{ book.data_publicacao }}</td>
                         <td>{{ book.genero_literario }}</td>
+                        <td class="action-buttons">
+                            <a href="{{ url_for('edit_book', book_id=book.id) }}"><button>Editar</button></a>
+                            <form action="{{ url_for('delete_book', book_id=book.id) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir este livro?');">
+                                <button type="submit">Excluir</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
