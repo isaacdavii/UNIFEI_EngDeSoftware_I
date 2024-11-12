@@ -55,7 +55,8 @@ def add_book():
         db.session.add(new_book)
         db.session.commit()
         return redirect(url_for('list_books'))
-    return render_template('add_book.html')
+    genres = Genre.query.all()
+    return render_template('add_book.html', genres=genres)
 
 # Rota para listar livros
 @app.route('/list_books')
@@ -76,7 +77,8 @@ def edit_book(book_id):
         
         db.session.commit()
         return redirect(url_for('list_books'))
-    return render_template('edit_book.html', book=book)
+    genres = Genre.query.all()
+    return render_template('edit_book.html', book=book, genres=genres)
 
 # Rota para excluir um livro
 @app.route('/delete_book/<int:book_id>', methods=['POST'])

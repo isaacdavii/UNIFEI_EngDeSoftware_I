@@ -102,16 +102,9 @@
             <label for="genero_literario">Gênero Literário:</label>
             <select name="genero_literario" id="genero_literario">
                 <option value="">Selecione</option>
-                <option value="Ficção">Ficção</option>
-                <option value="Literatura Infantil">Literatura Infantil</option>
-                <option value="Romance">Romance</option>
-                <option value="Fantasia">Fantasia</option>
-                <option value="Suspense">Suspense</option>
-                <option value="Autoajuda">Autoajuda</option>
-                <option value="História">História</option>
-                <option value="Tecnologia">Tecnologia</option>
-                <option value="Outros">Outros</option>
-                <!-- Adicione mais opções conforme necessário -->
+                {% for genre in genres %}
+                    <option value="{{ genre.name }}">{{ genre.name }}</option>
+                {% endfor %}
             </select>
             
             <button type="submit">Adicionar Livro</button>
