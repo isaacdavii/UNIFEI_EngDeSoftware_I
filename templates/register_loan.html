@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inserir Livro</title>
+    <title>Registro de Empréstimo de Livros</title>
     <style>
-        /* Estilos do formulário */
         body {
             display: flex;
             justify-content: center;
@@ -39,7 +38,7 @@
             color: #555;
         }
 
-        input[type="text"], select {
+        input[type="date"], select {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -85,29 +84,29 @@
 </head>
 <body>
     <div class="form-container">
-        <h1>Inserir Livro</h1>
-        <form action="{{ url_for('add_book') }}" method="post">
-            <label for="title">Título:</label>
-            <input type="text" name="title" id="title" required>
-            
-            <label for="author">Autor:</label>
-            <input type="text" name="author" id="author" required>
-            
-            <label for="publisher">Editora:</label>
-            <input type="text" name="publisher" id="publisher">
-            
-            <label for="data_publicacao">Data de Publicação:</label>
-            <input type="text" name="data_publicacao" id="data_publicacao" placeholder="AAAA">
-            
-            <label for="genero_literario">Gênero Literário:</label>
-            <select name="genero_literario" id="genero_literario">
-                <option value="">Selecione</option>
-                {% for genre in genres %}
-                    <option value="{{ genre.name }}">{{ genre.name }}</option>
+        <h1>Registro de Empréstimo de Livros</h1>
+        <form action="{{ url_for('register_loan') }}" method="post">
+            <label for="client_id">Nome do Cliente:</label>
+            <select id="client_id" name="client_id" required>
+                {% for client in clients %}
+                <option value="{{ client.id }}">{{ client.name }}</option>
                 {% endfor %}
             </select>
             
-            <button type="submit">Adicionar Livro</button>
+            <label for="book_id">Título do Livro:</label>
+            <select id="book_id" name="book_id" required>
+                {% for book in books %}
+                <option value="{{ book.id }}">{{ book.title }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="loan_date">Data do Empréstimo:</label>
+            <input type="date" id="loan_date" name="loan_date" required>
+            
+            <label for="return_date">Data de Expiração do Empréstimo:</label>
+            <input type="date" id="return_date" name="return_date" required>
+            
+            <button type="submit">Confirmar Empréstimo</button>
         </form>
         <a href="{{ url_for('home') }}" class="return-button">Retornar ao Menu Principal</a>
     </div>

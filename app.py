@@ -30,6 +30,18 @@ class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
 
+# Modelo de dados para Empréstimo
+class Loan(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
+    loan_date = db.Column(db.String(10), nullable=False)  # Formato DD/MM/AAAA
+    return_date = db.Column(db.String(10), nullable=False)  # Formato DD/MM/AAAA
+    status = db.Column(db.String(10), nullable=False, default='open')
+
+    client = db.relationship('Client', backref=db.backref('loans', lazy=True))
+    book = db.relationship('Book', backref=db.backref('loans', lazy=True))
+
 # Criação das tabelas no banco de dados
 with app.app_context():
     db.create_all()
@@ -161,6 +173,36 @@ def delete_genre(genre_id):
     db.session.delete(genre)
     db.session.commit()
     return redirect(url_for('manage_genres'))
+
+# Rota para registrar um novo empréstimo
+@app.route('/loan')
+def loan():
+    clients = Client.query.all()
+    books = Book.query.all()
+    return render_template('register_loan.html', clients=clients, books=books)
+
+@app.route('/register_loan', methods=['POST'])
+def register_loan():
+    try:
+        client_id = request.form['client_id']
+        book_id = request.form['book_id']
+        loan_date = request.form['loan_date']
+        return_date = request.form['return_date']
+        
+        new_loan = Loan(client_id=client_id, book_id=book_id, loan_date=loan_date, return_date=return_date, status='open')
+        
+        db.session.add(new_loan)
+        db.session.commit()
+        
+        return redirect(url_for('list_loans'))
+    except Exception as e:
+        return str(e)
+
+# Rota para listar empréstimos
+@app.route('/list_loans')
+def list_loans():
+    loans = Loan.query.all()
+    return render_template('list_loans.html', loans=loans)
 
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():

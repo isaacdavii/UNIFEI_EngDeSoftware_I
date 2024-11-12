@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Empréstimos</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4A6A72;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .open {
+            color: red;
+        }
+
+        .return-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto 0;
+            background-color: #4A6A72;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .return-button:hover {
+            background-color: #3d555f;
+        }
+
+        .generate-report-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto 0;
+            background-color: #4A6A72;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .generate-report-button:hover {
+            background-color: #3d555f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Empréstimos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Cliente</th>
+                    <th>Título do Livro</th>
+                    <th>Data do Empréstimo</th>
+                    <th>Data de Expiração</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in loans %}
+                <tr class="{{ 'open' if loan.status == 'open' else '' }}">
+                    <td>{{ loan.client.name }}</td>
+                    <td>{{ loan.book.title }}</td>
+                    <td>{{ loan.loan_date }}</td>
+                    <td>{{ loan.return_date }}</td>
+                    <td>{{ loan.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('home') }}" class="return-button">Retornar ao Menu Principal</a>
+        <a href="#" class="generate-report-button">Gerar Relatório</a>
+    </div>
+</body>
+</html>
