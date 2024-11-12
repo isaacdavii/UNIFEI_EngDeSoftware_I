@@ -89,7 +89,7 @@
             background-color: #c9302c;
         }
 
-        .return-button {
+        .return-button, .add-button {
             display: block;
             width: 200px;
             padding: 10px;
@@ -103,7 +103,7 @@
             transition: background-color 0.3s;
         }
 
-        .return-button:hover {
+        .return-button:hover, .add-button:hover {
             background-color: #3d555f;
         }
     </style>
@@ -140,6 +140,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        <a href="{{ url_for('add_book') }}" class="add-button">Adicionar Livro</a>
         <a href="{{ url_for('home') }}" class="return-button">Retornar ao Menu Principal</a>
     </div>
 </body>
