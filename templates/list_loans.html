@@ -112,15 +112,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% for loan in loans %}
-                <tr class="{{ 'open' if loan.status == 'open' else '' }}">
-                    <td>{{ loan.client.name }}</td>
-                    <td>{{ loan.book.title }}</td>
-                    <td>{{ loan.loan_date }}</td>
-                    <td>{{ loan.return_date }}</td>
-                    <td>{{ loan.status }}</td>
-                </tr>
-                {% endfor %}
+                {% if loans %}
+                    {% for loan in loans %}
+                    <tr class="{{ 'open' if loan.status == 'open' else '' }}">
+                        <td>{{ loan.client.name }}</td>
+                        <td>{{ loan.book.title }}</td>
+                        <td>{{ loan.loan_date }}</td>
+                        <td>{{ loan.return_date }}</td>
+                        <td>{{ loan.status }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">Nenhum empréstimo registrado</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
         <a href="{{ url_for('home') }}" class="return-button">Retornar ao Menu Principal</a>

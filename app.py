@@ -1,12 +1,15 @@
+import webbrowser
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import webbrowser
 from threading import Timer
+import logging
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Certifique-se de que o caminho está correto
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Atualizando o modelo de dados para o Livro
 class Book(db.Model):
@@ -42,9 +45,13 @@ class Loan(db.Model):
     client = db.relationship('Client', backref=db.backref('loans', lazy=True))
     book = db.relationship('Book', backref=db.backref('loans', lazy=True))
 
-# Criação das tabelas no banco de dados
+# Criação das tabelas no banco de dados (se necessário)
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+        app.logger.info("Database tables created successfully")
+    except Exception as e:
+        app.logger.error(f"Error creating database tables: {str(e)}")
 
 # Rota para a página inicial
 @app.route('/')
@@ -196,13 +203,26 @@ def register_loan():
         
         return redirect(url_for('list_loans'))
     except Exception as e:
+        app.logger.error(f"Error registering loan: {str(e)}")
         return str(e)
 
 # Rota para listar empréstimos
 @app.route('/list_loans')
 def list_loans():
-    loans = Loan.query.all()
-    return render_template('list_loans.html', loans=loans)
+    try:
+        app.logger.debug("Accessing list_loans route")
+        
+        loans = Loan.query.options(
+            db.joinedload(Loan.client),
+            db.joinedload(Loan.book)
+        ).all()
+        
+        app.logger.debug(f"Found {len(loans)} loans")
+        
+        return render_template('list_loans.html', loans=loans)
+    except Exception as e:
+        app.logger.error(f"Error in list_loans: {str(e)}")
+        return f"Error loading loans: {str(e)}", 500
 
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():
