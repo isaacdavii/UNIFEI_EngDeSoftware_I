@@ -11,7 +11,7 @@ Este projeto é um sistema de gerenciamento de biblioteca desenvolvido como part
 
 ## Objetivo
 
-O objetivo deste sistema é fornecer uma solução para a biblioteca, facilitando a gestão do acervo, a consulta de disponibilidade de livros, o controle de empréstimos e devoluções, a geração de relatórios e a aplicação de multas. O sistema foi projetado para ser intuitivo, seguro e eficiente.
+O objetivo deste sistema é fornecer uma solução para a biblioteca, facilitando a gestão do acervo, a consulta de disponibilidade de livros, o controle de empréstimos e devoluções, a geração de relatórios e a aplicação de multas. O sistema foi projetado para ser intuitivo, seguro e eficiente. Há um documento de requisitos na pasta de documentos que especifica a abordagem que será feita no decorrer do projeto.
 
 ## Funcionalidades Principais
 
@@ -39,12 +39,12 @@ A estrutura do projeto inclui:
 ## Requisitos Funcionais (Exemplos)
 
 1. Inserir Livro
-2. Inserir Gênero Literário
-3. Consultar Livro
-4. Alterar Dados do Livros
-5. Remover Dados dos Livros
-6.  Inserir Cliente
-7.  Registrar Empréstimo
+2. Inserir Cliente
+3. Inserir Gênero Literário
+4. Consultar Livro
+5. Alterar Dados dos Livros
+6. Remover Dados dos Livros
+7. Registrar Empréstimo
 
 ## Requisitos Não Funcionais (Exemplos)
 
@@ -56,9 +56,9 @@ A estrutura do projeto inclui:
 
 ## Protótipos de Telas
 
-1. **Telas Principais**: Cadastro de livros e clientes.
-2. **Relatório Gerado**: Exibição de relatórios detalhados com filtros e opções de exportação.
-3. **Consulta de Disponibilidade de Livros**: Tela de pesquisa de livros com filtros por título, autor e categoria.
+1. **Telas Principais**: Cadastro de livros e clientes. Listar livros e clientes. Gerenciamento de gêneros literários.
+2. **Relatório Gerado**: Exibição de relatórios detalhados com filtros e opções de exportação. [EM DESENVOLVIMENTO]
+3. **Consulta de Disponibilidade de Livros**: Tela de pesquisa de livros com filtros por título, autor e categoria. [EM DESENVOLVIMENTO]
 
 ## Matriz de Rastreabilidade
 
@@ -76,26 +76,18 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    ```bash
    git clone https://github.com/seuusuario/sistema-biblioteca.git
    cd sistema-biblioteca
+   
 2. Execução do Flask:
 
    No terminal você executa:
    ```bash
    python app.py
+   
 4. Execução da automação do Selenium:
 
    No terminal você executa:
    ```bash
    python tests/test_crud_selenium.py
-
-5. Página para Adicionar Cliente e Livro:
-   ```bash
-   localhost:5000/add_book
-   localhost:5000/add_client
-
-5. Página para Listar Cliente e Livro:
-   ```bash
-   localhost:5000/list_books
-   localhost:5000/list_clients
 
 ## Licença
   Este projeto é apenas para fins educacionais e não está licenciado para uso comercial.
