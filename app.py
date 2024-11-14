@@ -1,9 +1,10 @@
-import webbrowser
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from threading import Timer
 import logging
-from datetime import datetime
+import matplotlib.pyplot as plt
+import io
+import base64
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Certifique-se de que o caminho está correto
@@ -68,10 +69,7 @@ def add_book():
         publisher = request.form['publisher']
         data_publicacao = request.form['data_publicacao']
         genero_literario = request.form['genero_literario']
-        
-        new_book = Book(title=title, author=author, publisher=publisher, 
-                        data_publicacao=data_publicacao, genero_literario=genero_literario)
-        
+        new_book = Book(title=title, author=author, publisher=publisher, data_publicacao=data_publicacao, genero_literario=genero_literario)
         db.session.add(new_book)
         db.session.commit()
         return redirect(url_for('list_books'))
@@ -94,7 +92,6 @@ def edit_book(book_id):
         book.publisher = request.form['publisher']
         book.data_publicacao = request.form['data_publicacao']
         book.genero_literario = request.form['genero_literario']
-        
         db.session.commit()
         return redirect(url_for('list_books'))
     genres = Genre.query.all()
@@ -114,11 +111,9 @@ def add_client():
     if request.method == 'POST':
         name = request.form['name']
         cpf = request.form['cpf']
-        telefone = request.form.get('telefone')
-        email = request.form.get('email')
-        
+        telefone = request.form['telefone']
+        email = request.form['email']
         new_client = Client(name=name, cpf=cpf, telefone=telefone, email=email)
-        
         db.session.add(new_client)
         db.session.commit()
         return redirect(url_for('list_clients'))
@@ -139,7 +134,6 @@ def edit_client(client_id):
         client.cpf = request.form['cpf']
         client.telefone = request.form['telefone']
         client.email = request.form['email']
-        
         db.session.commit()
         return redirect(url_for('list_clients'))
     return render_template('edit_client.html', client=client)
@@ -196,35 +190,22 @@ def register_loan():
         book_id = request.form['book_id']
         loan_date = request.form['loan_date']
         return_date = request.form['return_date']
-        
-        new_loan = Loan(client_id=client_id, book_id=book_id, loan_date=loan_date, return_date=return_date, status='open')
-        
+        new_loan = Loan(client_id=client_id, book_id=book_id, loan_date=loan_date, return_date=return_date)
         db.session.add(new_loan)
         db.session.commit()
-        
         return redirect(url_for('list_loans'))
     except Exception as e:
-        app.logger.error(f"Error registering loan: {str(e)}")
         return str(e)
 
 # Rota para listar empréstimos
 @app.route('/list_loans')
 def list_loans():
     try:
-        app.logger.debug("Accessing list_loans route")
-        
-        loans = Loan.query.options(
-            db.joinedload(Loan.client),
-            db.joinedload(Loan.book)
-        ).all()
-        
-        app.logger.debug(f"Found {len(loans)} loans")
-        
+        loans = Loan.query.all()
         return render_template('list_loans.html', loans=loans)
     except Exception as e:
-        app.logger.error(f"Error in list_loans: {str(e)}")
-        return f"Error loading loans: {str(e)}", 500
-    
+        return str(e)
+
 # Rota para editar um empréstimo
 @app.route('/edit_loan/<int:loan_id>', methods=['GET', 'POST'])
 def edit_loan(loan_id):
@@ -235,7 +216,6 @@ def edit_loan(loan_id):
         loan.loan_date = request.form['loan_date']
         loan.return_date = request.form['return_date']
         loan.status = request.form['status']
-        
         db.session.commit()
         return redirect(url_for('list_loans'))
     clients = Client.query.all()
@@ -250,49 +230,50 @@ def delete_loan(loan_id):
     db.session.commit()
     return redirect(url_for('list_loans'))
 
-# Rota para gerar relatório
+# Rota para a página de geração de relatórios
 @app.route('/generate_report', methods=['GET', 'POST'])
 def generate_report():
     if request.method == 'POST':
-        start_date = request.form['start_date']
-        end_date = request.form['end_date']
-        user = request.form.get('user')
-        book = request.form.get('book')
-        author = request.form.get('author')
-        genre = request.form.get('genre')
-        publisher = request.form.get('publisher')
-        status = request.form.get('status')
+        report_type = request.form['report_type']
+        return redirect(url_for('show_report', report_type=report_type))
+    return render_template('generate_report.html')
 
-        query = Loan.query.join(Client).join(Book)
+# Rota para exibir o relatório
+@app.route('/show_report/<report_type>')
+def show_report(report_type):
+    books = Book.query.all()
+    data = {}
 
-        if start_date:
-            query = query.filter(Loan.loan_date >= start_date)
-        if end_date:
-            query = query.filter(Loan.loan_date <= end_date)
-        if user:
-            query = query.filter(Client.name.ilike(f'%{user}%'))
-        if book:
-            query = query.filter(Book.title.ilike(f'%{book}%'))
-        if author:
-            query = query.filter(Book.author.ilike(f'%{author}%'))
-        if genre:
-            query = query.filter(Book.genero_literario.ilike(f'%{genre}%'))
-        if publisher:
-            query = query.filter(Book.publisher.ilike(f'%{publisher}%'))
-        if status:
-            query = query.filter(Loan.status == status)
+    if report_type == 'author':
+        for book in books:
+            data[book.author] = data.get(book.author, 0) + 1
+    elif report_type == 'genero_literario':
+        for book in books:
+            data[book.genero_literario] = data.get(book.genero_literario, 0) + 1
+    elif report_type == 'publisher':
+        for book in books:
+            data[book.publisher] = data.get(book.publisher, 0) + 1
 
-        report = query.all()
+    fig, ax = plt.subplots(figsize=(12, 8))  # Aumenta o tamanho do gráfico
+    ax.bar(data.keys(), data.values())
+    ax.set_title(f'Relatório por {report_type.replace("_", " ").title()}')
+    ax.set_xlabel(report_type.replace("_", " ").title())
+    ax.set_ylabel('Quantidade')
+    plt.xticks(rotation=45, ha='right')
 
-        return render_template('report.html', report=report)
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plot_url = base64.b64encode(img.getvalue()).decode()
 
-    return render_template('report.html')
+    return render_template('show_report.html', plot_url=plot_url)
 
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():
     global browser_opened
     if not browser_opened:
-        webbrowser.open_new('http://127.0.0.1:5000/')
+        import webbrowser
+        webbrowser.open_new("http://127.0.0.1:5000/")
         browser_opened = True
 
 if __name__ == '__main__':

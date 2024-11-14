@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerar Relatório</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fdfaf7;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #4A6A72;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3d555f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerar Relatório</h1>
+        <form action="{{ url_for('generate_report') }}" method="post">
+            <label for="report_type">Tipo de Relatório:</label>
+            <select name="report_type" id="report_type">
+                <option value="author">Por Autor</option>
+                <option value="genero_literario">Por Gênero Literário</option>
+                <option value="publisher">Por Editora</option>
+            </select>
+            <button type="submit">Gerar Relatório</button>
+        </form>
+    </div>
+</body>
+</html>
