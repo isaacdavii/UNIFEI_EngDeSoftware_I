@@ -254,12 +254,14 @@ def show_report(report_type):
         for book in books:
             data[book.publisher] = data.get(book.publisher, 0) + 1
 
-    fig, ax = plt.subplots(figsize=(12, 8))  # Aumenta o tamanho do gráfico
+    fig, ax = plt.subplots(figsize=(16, 10))  # Aumenta o tamanho do gráfico
     ax.bar(data.keys(), data.values())
-    ax.set_title(f'Relatório por {report_type.replace("_", " ").title()}')
-    ax.set_xlabel(report_type.replace("_", " ").title())
-    ax.set_ylabel('Quantidade')
-    plt.xticks(rotation=45, ha='right')
+    ax.set_title(f'Relatório por {report_type.replace("_", " ").title()}', fontsize=20)
+    ax.set_xlabel(report_type.replace("_", " ").title(), fontsize=16)
+    ax.set_ylabel('Quantidade', fontsize=16)
+    plt.xticks(rotation=60, ha='right', fontsize=12)  # Inclina mais os rótulos e aumenta o tamanho da fonte
+    plt.yticks(fontsize=12)
+    plt.subplots_adjust(bottom=0.3)  # Adiciona mais espaço na parte inferior
 
     img = io.BytesIO()
     plt.savefig(img, format='png')

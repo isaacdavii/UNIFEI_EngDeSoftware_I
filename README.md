@@ -97,6 +97,7 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    pip install selenium
    pip install flask
    pip install flask_sqlalchemy
+   pip install matplotlib
 
    Chrome WebDriver: https://developer.chrome.com/docs/chromedriver/downloads?hl=pt-br
    ```
