@@ -76,8 +76,10 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    ```bash
    git clone https://github.com/seuusuario/sistema-biblioteca.git
    cd sistema-biblioteca
+   ```
+   Atenção: você deve substituir conforme o usuário e repositório apresentados!
    
-2. Execução do Flask:
+3. Execução do Flask:
 
    No terminal você executa:
    ```bash
@@ -88,6 +90,16 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    No terminal você executa:
    ```bash
    python tests/test_crud_selenium.py
+   ```
+
+## Bibliotecas necessários
+   ```bash
+   pip install selenium
+   pip install flask
+   pip install flask_sqlalchemy
+
+   Chrome WebDriver: https://developer.chrome.com/docs/chromedriver/downloads?hl=pt-br
+   ```
 
 ## Licença
   Este projeto é apenas para fins educacionais e não está licenciado para uso comercial.
