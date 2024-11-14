@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from threading import Timer
 import logging
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Certifique-se de que o caminho está correto
@@ -249,17 +250,52 @@ def delete_loan(loan_id):
     db.session.commit()
     return redirect(url_for('list_loans'))
 
+# Rota para gerar relatório
+@app.route('/generate_report', methods=['GET', 'POST'])
+def generate_report():
+    if request.method == 'POST':
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        user = request.form.get('user')
+        book = request.form.get('book')
+        author = request.form.get('author')
+        genre = request.form.get('genre')
+        publisher = request.form.get('publisher')
+        status = request.form.get('status')
+
+        query = Loan.query.join(Client).join(Book)
+
+        if start_date:
+            query = query.filter(Loan.loan_date >= start_date)
+        if end_date:
+            query = query.filter(Loan.loan_date <= end_date)
+        if user:
+            query = query.filter(Client.name.ilike(f'%{user}%'))
+        if book:
+            query = query.filter(Book.title.ilike(f'%{book}%'))
+        if author:
+            query = query.filter(Book.author.ilike(f'%{author}%'))
+        if genre:
+            query = query.filter(Book.genero_literario.ilike(f'%{genre}%'))
+        if publisher:
+            query = query.filter(Book.publisher.ilike(f'%{publisher}%'))
+        if status:
+            query = query.filter(Loan.status == status)
+
+        report = query.all()
+
+        return render_template('report.html', report=report)
+
+    return render_template('report.html')
+
 # Função para abrir as URLs automaticamente (com flag para abrir apenas uma vez)
 def open_browser():
-    # Use uma variável global para garantir que o navegador abre apenas uma vez
     global browser_opened
     if not browser_opened:
         webbrowser.open_new('http://127.0.0.1:5000/')
         browser_opened = True
 
 if __name__ == '__main__':
-    # Configura a flag antes de iniciar o servidor
     browser_opened = False
-    # Use Timer para abrir o navegador um pouco depois do app iniciar
     Timer(1, open_browser).start()
     app.run(debug=False)  # Execute sem debug para evitar reinicializações duplicadas

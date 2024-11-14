@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Empréstimos</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
+            background-size: 20%;
+            background-color: #fdfaf7;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4A6A72;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3d555f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4A6A72;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Empréstimos</h1>
+        <form method="POST" action="{{ url_for('generate_report') }}">
+            <label for="start_date">Data Inicial:</label>
+            <input type="date" id="start_date" name="start_date" required>
+            <label for="end_date">Data Final:</label>
+            <input type="date" id="end_date" name="end_date" required>
+            <label for="user">Usuário:</label>
+            <input type="text" id="user" name="user" maxlength="100">
+            <label for="book">Livro:</label>
+            <input type="text" id="book" name="book" maxlength="256">
+            <label for="author">Autor:</label>
+            <input type="text" id="author" name="author" maxlength="256">
+            <label for="genre">Gênero Literário:</label>
+            <input type="text" id="genre" name="genre" maxlength="50">
+            <label for="publisher">Editora:</label>
+            <input type="text" id="publisher" name="publisher" maxlength="256">
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="">Todos</option>
+                <option value="open">Em Aberto</option>
+                <option value="closed">Devolvido</option>
+            </select>
+            <button type="submit">Gerar Relatório</button>
+        </form>
+        {% if report %}
+            <h2>Resultados do Relatório</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Livro</th>
+                        <th>Autor</th>
+                        <th>Gênero Literário</th>
+                        <th>Editora</th>
+                        <th>Data do Empréstimo</th>
+                        <th>Data de Expiração</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in report %}
+                        <tr>
+                            <td>{{ loan.client.name }}</td>
+                            <td>{{ loan.book.title }}</td>
+                            <td>{{ loan.book.author }}</td>
+                            <td>{{ loan.book.genero_literario }}</td>
+                            <td>{{ loan.book.publisher }}</td>
+                            <td>{{ loan.loan_date }}</td>
+                            <td>{{ loan.return_date }}</td>
+                            <td>{{ loan.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
