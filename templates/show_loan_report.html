@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Empréstimos</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fdfaf7;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;  /* Aumenta a largura máxima do container */
+            max-width: 1400px;  /* Aumenta a largura máxima do container */
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .return-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto 0;
+            background-color: #4A6A72;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .return-button:hover {
+            background-color: #3d555f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Empréstimos</h1>
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Gráfico de Relatório de Empréstimos">
+        <a href="{{ url_for('list_loans') }}" class="return-button">Voltar à Lista de Empréstimos</a>
+    </div>
+</body>
+</html>
