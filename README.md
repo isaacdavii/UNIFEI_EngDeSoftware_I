@@ -76,8 +76,10 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    ```bash
    git clone https://github.com/seuusuario/sistema-biblioteca.git
    cd sistema-biblioteca
+   ```
+   Atenção: você deve substituir conforme o usuário e repositório apresentados!
    
-2. Execução do Flask:
+3. Execução do Flask:
 
    No terminal você executa:
    ```bash
