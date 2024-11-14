@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Empréstimos</title>
+    <title>Lista de Empréstimos</title>
     <style>
         body {
             display: flex;
@@ -11,15 +11,13 @@
             min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background: url("{{ url_for('static', filename='Livros.jpg') }}") no-repeat bottom right;
-            background-size: 20%;
             background-color: #fdfaf7;
             color: #333;
         }
 
         .container {
-            width: 80%;
-            max-width: 800px;
+            width: 90%;
+            max-width: 1400px;
             background-color: white;
             padding: 20px;
             border-radius: 15px;
@@ -57,10 +55,6 @@
             background-color: #f1f1f1;
         }
 
-        .open {
-            color: red;
-        }
-
         .action-buttons {
             display: flex;
             gap: 10px;
@@ -93,7 +87,7 @@
             background-color: #c9302c;
         }
 
-        .return-button, .generate-report-button {
+        .return-button, .add-button, .report-button {
             display: block;
             width: 200px;
             padding: 10px;
@@ -107,8 +101,18 @@
             transition: background-color 0.3s;
         }
 
-        .return-button:hover, .generate-report-button:hover {
+        .return-button:hover, .add-button:hover, .report-button:hover {
             background-color: #3d555f;
+        }
+
+        .status-open {
+            background-color: #92da95;
+            color: #017e2f;
+        }
+
+        .status-closed {
+            background-color: #ff5e5e;
+            color: #930000;
         }
     </style>
 </head>
@@ -118,18 +122,17 @@
         <table>
             <thead>
                 <tr>
-                    <th>Nome do Cliente</th>
-                    <th>Título do Livro</th>
-                    <th>Data do Empréstimo</th>
-                    <th>Data de Expiração</th>
+                    <th>Cliente</th>
+                    <th>Livro</th>
+                    <th>Data de Empréstimo</th>
+                    <th>Data de Devolução</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                {% if loans %}
-                    {% for loan in loans %}
-                    <tr class="{{ 'open' if loan.status == 'open' else '' }}">
+                {% for loan in loans %}
+                    <tr class="{% if loan.status == 'open' %}status-open{% else %}status-closed{% endif %}">
                         <td>{{ loan.client.name }}</td>
                         <td>{{ loan.book.title }}</td>
                         <td>{{ loan.loan_date }}</td>
@@ -142,16 +145,12 @@
                             </form>
                         </td>
                     </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="6" style="text-align: center;">Nenhum empréstimo registrado</td>
-                    </tr>
-                {% endif %}
+                {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('generate_report') }}" class="generate-report-button">Gerar Relatório</a>
+        <a href="{{ url_for('loan') }}" class="add-button">Registrar Empréstimo</a>
         <a href="{{ url_for('home') }}" class="return-button">Retornar ao Menu Principal</a>
+        <a href="{{ url_for('generate_loan_report') }}" class="report-button">Gerar Relatório de Empréstimos</a>
     </div>
 </body>
 </html>
