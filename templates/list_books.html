@@ -18,12 +18,12 @@
         }
 
         .container {
-            width: 80%;
-            max-width: 800px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 98%; /* Ocupa toda a largura */
+            max-width: none; /* Remove limite de largura */
+            background-color: #fdfaf7;
+            padding: 30px;
+            border-radius: 0; /* Remove bordas arredondadas */
+            box-shadow: none; /* Remove sombra */
         }
 
         h1 {
@@ -34,8 +34,9 @@
         }
 
         table {
+            table-layout: auto; /* Permite ajuste flexível das colunas */
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: collapse; /* Une todas as linhas em um único layout */
             margin-top: 10px;
             border-radius: 10px;
             overflow: hidden;
@@ -43,8 +44,27 @@
 
         th, td {
             padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+            text-align: center; /* Centraliza o conteúdo */
+            border-bottom: 1px solid #ddd; /* Linha cinza contínua */
+            vertical-align: middle; /* Alinhamento vertical */
+        }
+
+        th:nth-child(1), td:nth-child(1) {
+            width: 40%; /* Aumenta a largura da coluna "Título" */
+            min-width: 300px; /* Garante um mínimo de espaço */
+            white-space: nowrap; /* Impede quebra de linha */
+            text-overflow: ellipsis; /* Adiciona reticências */
+            overflow: hidden; /* Evita que o texto ultrapasse os limites */
+        }
+
+        th:nth-child(6), td:nth-child(6) {
+            width: 150px; /* Define largura fixa para a coluna "Ações" */
+            min-width: 150px; /* Garante largura mínima */
+            text-align: center; /* Centraliza os botões */
+        }
+
+        tr:last-child td {
+            border-bottom: none; /* Remove linha cinza na última linha */
         }
 
         th {
@@ -57,13 +77,14 @@
             background-color: #f1f1f1;
         }
 
+        /* Ajuste dos botões sem usar display flex */
         .action-buttons {
-            display: flex;
-            gap: 10px;
+            text-align: center; /* Alinha ao centro */
         }
 
         .action-buttons a, .action-buttons form {
-            display: inline-block;
+            display: inline-block; /* Coloca os botões lado a lado */
+            margin: 0 5px; /* Espaçamento entre botões */
         }
 
         .action-buttons button {
@@ -105,6 +126,17 @@
 
         .return-button:hover, .add-button:hover, .report-button:hover {
             background-color: #3d555f;
+        }
+
+        @media (max-width: 768px) {
+            th:nth-child(1), td:nth-child(1) {
+                white-space: normal; /* Permite quebra de linha em telas pequenas */
+                width: auto;
+            }
+
+            table {
+                font-size: 14px; /* Reduz o tamanho da fonte */
+            }
         }
     </style>
 </head>
