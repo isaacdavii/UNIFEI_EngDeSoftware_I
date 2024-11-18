@@ -5,7 +5,7 @@ Este projeto é um sistema de gerenciamento de biblioteca desenvolvido como part
 ## Integrantes
 
 - **Isaac Davi Mendonça Viana** - 2023000650
-- **Laís Padovan** - 2024016313
+- **Laís Padovan** - 2024016313 [https://github.com/laispadovan]
 - **Marcos Eduardo Alves de Souza** - 2023010155
 - **Samuel Guedes Nascimento** - 2023012991
 
