@@ -53,13 +53,26 @@
             font-weight: bold;
         }
 
-        tr:hover {
-            background-color: #f1f1f1;
+        /* Alinhar o cabeçalho "Ações" à direita */
+        th:nth-child(2) {
+            text-align: right;
+            padding-right: 20px; /* Espaçamento adicional se necessário */
         }
 
+        /* Modificar a célula de Ações */
+        td.action-buttons {
+            display: flex;
+            justify-content: flex-end; /* Alinha os botões à direita */
+            align-items: center; /* Centraliza verticalmente */
+            gap: 10px; /* Espaçamento entre os botões */
+            padding-right: 20px; /* Espaçamento da borda direita */
+        }
+
+        /* Organização dos botões */
         .action-buttons {
             display: flex;
-            gap: 10px;
+            justify-content: flex-end; /* Garante que os botões estejam alinhados à direita */
+            gap: 10px; /* Espaçamento entre os botões */
         }
 
         .action-buttons a, .action-buttons form {
@@ -155,7 +168,7 @@
             <thead>
                 <tr>
                     <th>Gênero Literário</th>
-                    <th>Ações</th>
+                    <th>Modificações</th>
                 </tr>
             </thead>
             <tbody>
