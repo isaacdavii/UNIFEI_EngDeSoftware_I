@@ -57,8 +57,8 @@ A estrutura do projeto inclui:
 ## Protótipos de Telas
 
 1. **Telas Principais**: Cadastro de livros e clientes. Listar livros e clientes. Gerenciamento de gêneros literários.
-2. **Relatório Gerado**: Exibição de relatórios detalhados com filtros e opções de exportação. [EM DESENVOLVIMENTO]
-3. **Consulta de Disponibilidade de Livros**: Tela de pesquisa de livros com filtros por título, autor e categoria. [EM DESENVOLVIMENTO]
+2. **Relatório Gerado**: Exibição de relatórios detalhados com filtros e opções de exportação.
+3. **Consulta de Disponibilidade de Livros**: Tela de pesquisa de livros com filtros por título, autor e categoria.
 
 ## Matriz de Rastreabilidade
 
