@@ -4,7 +4,7 @@ Este projeto é um sistema de gerenciamento de biblioteca desenvolvido como part
 
 ## Integrantes
 
-- **Isaac Davi Mendonça Viana** - 2023000650
+- **Isaac Davi Mendonça Viana** - 2023000650 [https://github.com/isaacdavii]
 - **Laís Padovan** - 2024016313 [https://github.com/laispadovan]
 - **Marcos Eduardo Alves de Souza** - 2023010155
 - **Samuel Guedes Nascimento** - 2023012991
@@ -77,15 +77,27 @@ A matriz de rastreabilidade conecta cada requisito a uma funcionalidade ou caso 
    git clone https://github.com/seuusuario/sistema-biblioteca.git
    cd sistema-biblioteca
    ```
-   Atenção: você deve substituir conforme o usuário e repositório apresentados!
+   **Atenção**: você deve substituir conforme o usuário e repositório apresentados!
+
+2. Usar um ambiente virtual:
    
-3. Execução do Flask:
+   Criar um ambiente virtual:
+   ```
+   python3 -m venv venv
+   ```
+
+   Ativar o ambiente:
+   ```
+   source venv/bin/activate
+   ```
+   
+4. Execução do Flask:
 
    No terminal você executa:
    ```bash
    python app.py
    
-4. Execução da automação do Selenium:
+5. Execução da automação do Selenium:
 
    No terminal você executa:
    ```bash
